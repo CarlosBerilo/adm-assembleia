@@ -5,6 +5,7 @@ import com.assembleia.adm.core.domain.enumeration.AssembleiaStatus;
 import com.assembleia.adm.core.port.outbound.AssembleiaDataPort;
 import com.assembleia.adm.infrastruture.config.Adapter;
 import com.assembleia.adm.infrastruture.repository.AssembleiaRepository;
+import jakarta.persistence.FetchType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -38,6 +39,6 @@ public class AssembleiaAdapter implements AssembleiaDataPort {
 
     @Override
     public List<Assembleia> lista(AssembleiaStatus assembleiaStatus) {
-        return null;
+        return assembleiaRepository.findByAssembleiaStatus(assembleiaStatus);
     }
 }
