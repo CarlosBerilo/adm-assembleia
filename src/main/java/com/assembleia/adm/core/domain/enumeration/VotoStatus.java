@@ -1,11 +1,11 @@
 package com.assembleia.adm.core.domain.enumeration;
 
-public enum Voto {
+public enum VotoStatus {
     SIM("SIM"), NAO("NAO");
 
     private String resultado;
 
-    Voto(String resultado) {
+    VotoStatus(String resultado) {
         this.resultado = resultado;
 
     }

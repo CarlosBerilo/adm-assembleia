@@ -9,6 +9,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -57,7 +59,10 @@ public class Assembleia {
     @OneToMany(mappedBy = "assembleia", fetch = FetchType.LAZY)
     private List<Pauta> pautas;
 
-    @ManyToMany(mappedBy = "assembleias", fetch = FetchType.LAZY)
+    @ManyToMany
+    @JoinTable(name = "assembleia_cooperado",
+    joinColumns =  @JoinColumn(name = "idAssembleia"),
+    inverseJoinColumns = @JoinColumn(name = "idCooperado"))
     private List<Cooperado> cooperados;
 
 }

@@ -1,5 +1,6 @@
 package com.assembleia.adm.core.domain.entity;
 
+import com.assembleia.adm.core.domain.enumeration.VotoStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -7,38 +8,42 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cooperado")
-public class Cooperado {
+@Table(name = "sessao_votacao")
+public class SessaoVotacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column
-    private String cpf;
+    @Column(name = "inicio")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp inicio;
 
-    @Column
-    private String nome;
+    @Column(name = "termino")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp termino;
 
-    @ManyToMany(mappedBy = "cooperados")
-    private List<Assembleia> assembleias;
-
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idPauta", referencedColumnName = "id")
+    private Pauta pauta;
 /*
-    @OneToOne
-    @JoinColumn(name = "idVoto", referencedColumnName = "id")
-    private Voto voto;
+    @OneToMany
+    private List<Voto> votos;
 */
 }

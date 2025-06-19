@@ -1,6 +1,7 @@
 package com.assembleia.adm.infrastruture.adapter;
 
 import com.assembleia.adm.core.domain.entity.Assembleia;
+import com.assembleia.adm.core.domain.enumeration.AssembleiaStatus;
 import com.assembleia.adm.core.port.outbound.AssembleiaDataPort;
 import com.assembleia.adm.infrastruture.config.Adapter;
 import com.assembleia.adm.infrastruture.repository.AssembleiaRepository;
@@ -36,7 +37,7 @@ public class AssembleiaAdapter implements AssembleiaDataPort {
     }
 
     @Override
-    public List<Assembleia> lista(String status) {
+    public List<Assembleia> lista(AssembleiaStatus assembleiaStatus) {
         return null;
     }
 }
