@@ -36,9 +36,8 @@ public class Cooperado {
     @ManyToMany(mappedBy = "cooperados")
     private List<Assembleia> assembleias;
 
-/*
     @OneToOne
     @JoinColumn(name = "idVoto", referencedColumnName = "id")
     private Voto voto;
-*/
+
 }

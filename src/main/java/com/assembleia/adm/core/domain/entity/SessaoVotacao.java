@@ -1,6 +1,5 @@
 package com.assembleia.adm.core.domain.entity;
 
-import com.assembleia.adm.core.domain.enumeration.VotoStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -42,8 +41,9 @@ public class SessaoVotacao {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idPauta", referencedColumnName = "id")
     private Pauta pauta;
-/*
+
     @OneToMany
+    @JoinColumn(name = "idSessaoVotacao", referencedColumnName = "id")
     private List<Voto> votos;
-*/
+
 }

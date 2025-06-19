@@ -24,11 +24,11 @@ public class Voto {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-/*
+
     @OneToOne
-    @JoinColumn(name = "id_cooperado", referencedColumnName = "id")
+    @JoinColumn(name = "idCooperado", referencedColumnName = "id")
     private Cooperado cooperado;
-*/
+
     @Enumerated(EnumType.STRING)
     private VotoStatus votoStatus;
 
