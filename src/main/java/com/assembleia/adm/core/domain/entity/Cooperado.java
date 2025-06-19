@@ -36,7 +36,7 @@ public class Cooperado {
     @ManyToMany(mappedBy = "cooperados")
     private List<Assembleia> assembleias;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idVoto", referencedColumnName = "id")
     private Voto voto;
 

@@ -42,7 +42,7 @@ public class SessaoVotacao {
     @JoinColumn(name = "idPauta", referencedColumnName = "id")
     private Pauta pauta;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "idSessaoVotacao", referencedColumnName = "id")
     private List<Voto> votos;
 

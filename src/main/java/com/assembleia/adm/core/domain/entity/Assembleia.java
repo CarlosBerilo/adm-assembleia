@@ -59,7 +59,7 @@ public class Assembleia {
     @OneToMany(mappedBy = "assembleia", fetch = FetchType.LAZY)
     private List<Pauta> pautas;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "assembleia_cooperado",
     joinColumns =  @JoinColumn(name = "idAssembleia"),
     inverseJoinColumns = @JoinColumn(name = "idCooperado"))

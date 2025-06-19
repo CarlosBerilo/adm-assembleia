@@ -32,7 +32,7 @@ public class Pauta {
     @JoinColumn(name = "id_assembleia", nullable = false)
     private Assembleia assembleia;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idSessaoVotacao", referencedColumnName = "id")
     private SessaoVotacao sessaoVotacao;
 
