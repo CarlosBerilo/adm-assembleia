@@ -1,7 +1,10 @@
 package com.assembleia.adm.core.domain.entity;
 
+import com.assembleia.adm.core.domain.enumeration.AssembleiaStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -48,8 +51,8 @@ public class Assembleia {
     @Column
     private String ata;
 
-    @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private AssembleiaStatus assembleiaStatus;
 
     @OneToMany(mappedBy = "assembleia", fetch = FetchType.LAZY)
     private List<Pauta> pautas;

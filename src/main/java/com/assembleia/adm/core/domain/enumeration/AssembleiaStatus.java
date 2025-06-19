@@ -5,7 +5,7 @@ public enum AssembleiaStatus {
 
     private String status;
 
-    private AssembleiaStatus(String status) {
+    AssembleiaStatus(String status) {
         this.status = status;
     }
 
