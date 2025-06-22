@@ -1,9 +1,9 @@
-package com.assembleia.adm.core.port.outbound;
+package com.assembleia.adm.core.port.inbound;
+
 
 import com.assembleia.adm.core.domain.entity.Voto;
-import com.assembleia.adm.core.domain.enumeration.VotoStatus;
 
-public interface VotoDataPort {
+public interface VotoServicePort {
     void votar(Voto voto);
 
     Integer totalVotos(Long idSessaoVotacao);
@@ -11,5 +11,4 @@ public interface VotoDataPort {
     Integer totalVotosSim(Long idSessaoVotacao);
 
     Integer totalVotosNao(Long idSessaoVotacao);
-
 }

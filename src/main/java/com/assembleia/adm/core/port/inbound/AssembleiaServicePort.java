@@ -1,6 +1,7 @@
 package com.assembleia.adm.core.port.inbound;
 
 import com.assembleia.adm.core.domain.entity.Assembleia;
+import com.assembleia.adm.core.domain.enumeration.AssembleiaStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,5 +15,7 @@ public interface AssembleiaServicePort {
 
     List<Assembleia> lista();
 
-    List<Assembleia> lista(String status);
+    List<Assembleia> lista(AssembleiaStatus assembleiaStatus);
+
+    Assembleia incluirAta(Long idAssembleia,String ata);
 }

@@ -1,0 +1,20 @@
+package com.assembleia.adm.shared.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+@SuperBuilder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class SessaoVotacaoRequestDTO {
+
+    private Long idSessaoVotacao;
+
+    private Long idPauta;
+
+    private Integer tempoDeSessao;
+
+}

@@ -1,12 +1,16 @@
 package com.assembleia.adm.core.domain.enumeration;
 
 public enum VotoStatus {
+
     SIM("SIM"), NAO("NAO");
 
-    private String resultado;
+    private String votoSelecionado;
 
-    VotoStatus(String resultado) {
-        this.resultado = resultado;
+    private VotoStatus(String votoSelecionado) {
+        this.votoSelecionado = votoSelecionado;
+    }
 
+    public String getVotoSelecionado(){
+        return votoSelecionado;
     }
 }

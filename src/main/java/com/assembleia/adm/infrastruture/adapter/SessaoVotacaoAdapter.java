@@ -6,6 +6,8 @@ import com.assembleia.adm.infrastruture.config.Adapter;
 import com.assembleia.adm.infrastruture.repository.SessaoVotacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Optional;
+
 @Adapter
 public class SessaoVotacaoAdapter implements SessaoVotacaoDataPort {
 
@@ -18,7 +20,13 @@ public class SessaoVotacaoAdapter implements SessaoVotacaoDataPort {
     }
 
     @Override
-    public SessaoVotacao terminoSessaoVotacao(SessaoVotacao sessaoVotacao) {
-        return sessaoVotacaoRepository.save(sessaoVotacao);
+    public Optional<SessaoVotacao> sessaoVotacaoById(Long idSessaoVotacao) {
+        return sessaoVotacaoRepository.findById(idSessaoVotacao);
+    }
+
+    @Override
+    public Optional<SessaoVotacao> terminoSessaoVotacao(SessaoVotacao sessaoVotacao) {
+        sessaoVotacaoRepository.save(sessaoVotacao);
+        return sessaoVotacaoRepository.findById(sessaoVotacao.getId());
     }
 }

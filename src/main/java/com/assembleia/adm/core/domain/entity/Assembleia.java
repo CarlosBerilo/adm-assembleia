@@ -1,6 +1,7 @@
 package com.assembleia.adm.core.domain.entity;
 
 import com.assembleia.adm.core.domain.enumeration.AssembleiaStatus;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,7 +31,8 @@ import java.util.List;
 public class Assembleia {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "assembleia_seq")
+    @SequenceGenerator(name = "assembleia_seq", sequenceName = "assembleia_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "data_convocacao")
@@ -47,8 +50,8 @@ public class Assembleia {
     @Column(name = "quorum_minimo")
     private Integer quorumMinimo;
 
-    @Column
-    private Integer quorum;
+    @Column(name = "tempo_sessao")
+    private Integer tempoSessao;
 
     @Column
     private String ata;
@@ -56,6 +59,7 @@ public class Assembleia {
     @Enumerated(EnumType.STRING)
     private AssembleiaStatus assembleiaStatus;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "assembleia", fetch = FetchType.LAZY)
     private List<Pauta> pautas;
 
@@ -64,5 +68,9 @@ public class Assembleia {
     joinColumns =  @JoinColumn(name = "idAssembleia"),
     inverseJoinColumns = @JoinColumn(name = "idCooperado"))
     private List<Cooperado> cooperados;
+
+    public Assembleia(Long id){
+        this.id = id;
+    }
 
 }

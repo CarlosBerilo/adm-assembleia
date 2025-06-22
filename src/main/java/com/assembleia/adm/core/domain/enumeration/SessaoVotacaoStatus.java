@@ -1,19 +1,16 @@
 package com.assembleia.adm.core.domain.enumeration;
 
-public enum AssembleiaStatus {
-    MARCADA("MARCADA"),
-    CANCELADA("CANCELADA"),
-    INICIADA("INICIADA"),
-    FINALIZADA("FINALIZADA");
+public enum SessaoVotacaoStatus {
+
+    ABERTA("ABERTA"), FECHADA("FECHADA");
 
     private String status;
 
-    AssembleiaStatus(String status) {
+    private SessaoVotacaoStatus(String status){
         this.status = status;
     }
 
     public String getStatus(){
         return status;
     }
-
 }
