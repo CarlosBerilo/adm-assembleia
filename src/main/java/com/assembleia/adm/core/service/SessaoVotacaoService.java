@@ -9,15 +9,25 @@ import com.assembleia.adm.core.port.inbound.PautaServicePort;
 import com.assembleia.adm.core.port.inbound.SessaoVotacaoServicePort;
 import com.assembleia.adm.core.port.inbound.VotoServicePort;
 import com.assembleia.adm.core.port.outbound.SessaoVotacaoDataPort;
+import com.assembleia.adm.shared.util.TimerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
 public class SessaoVotacaoService implements SessaoVotacaoServicePort {
@@ -30,6 +40,12 @@ public class SessaoVotacaoService implements SessaoVotacaoServicePort {
 
     @Autowired
     private VotoServicePort votoServicePort;
+
+    @Autowired
+    private TimerUtil timerUtil;
+
+    @Autowired
+    private TaskScheduler taskScheduler;
 
     @Override
     public SessaoVotacao iniciarSessaoVotacao(Integer tempoDeSessao, Long idPauta) {
@@ -47,7 +63,7 @@ public class SessaoVotacaoService implements SessaoVotacaoServicePort {
         pauta.setSessaoVotacao(inicioSessaoVotacao);
         pautaServicePort.atualizar(pauta);
 
-        timerFinalizarSessaoVotacao(tempoDeSessao);
+        terminoAutomaticoSessaoVotacao(tempoDeSessao, inicioSessaoVotacao.getId());
 
         return inicioSessaoVotacao;
     }
@@ -56,16 +72,19 @@ public class SessaoVotacaoService implements SessaoVotacaoServicePort {
     public SessaoVotacao finalizarSessaoVotacao(Long idSessaoVotacao) {
         //TODO: Validar se ja existe/inicializada
         //TODO: Mudar status para finalizada
-        return sessaoVotacaoDataPort.terminoSessaoVotacao(
-                    sessaoVotacaoDataPort.sessaoVotacaoById(idSessaoVotacao).map(sessaoVotacao -> {
-                        sessaoVotacao.setTermino(horaSessaoVotacao());
-                        sessaoVotacao.setTotalVotos(sessaoVotacao.getVotos().size());
-                        sessaoVotacao.setTotalVotosSim(contagemVotosSim(sessaoVotacao.getVotos()));
-                        sessaoVotacao.setTotalVotosNao(contagemVotosNao(sessaoVotacao.getVotos()));
-                        sessaoVotacao.setSessaoVotacaoStatus(SessaoVotacaoStatus.FECHADA);
-                        return sessaoVotacao;
-                    }).orElseThrow(() -> new RuntimeException("Error: Sessao Votacao finalizada")))
-        .orElseThrow(() -> new RuntimeException("Error: Sessao Votacao finalizada"));
+        System.out.println(" finalizarSessaoVotacao() FinalizarSessaoVotacao -----------------");
+
+        SessaoVotacao sessaoVotacao = sessaoVotacaoById(idSessaoVotacao);
+        System.out.println(" finalizarSessaoVotacao() sessaoVotacao -----------------");
+        sessaoVotacao.setTotalVotos(sessaoVotacao.getVotos().size());
+        sessaoVotacao.setTotalVotosSim(votoServicePort.totalVotosSim(sessaoVotacao.getId()));
+        sessaoVotacao.setTotalVotosNao(votoServicePort.totalVotosNao(sessaoVotacao.getId()));
+        sessaoVotacao.setSessaoVotacaoStatus(SessaoVotacaoStatus.FECHADA);
+
+        Optional<SessaoVotacao> sv = sessaoVotacaoDataPort.terminoSessaoVotacao(sessaoVotacao);
+        System.out.println(" finalizarSessaoVotacao() FinalizarSessaoVotacao -----------------");
+
+        return sv.orElseThrow();
     }
 
     @Override
@@ -104,8 +123,19 @@ public class SessaoVotacaoService implements SessaoVotacaoServicePort {
         return nao.get();
     }
 
-    private void timerFinalizarSessaoVotacao(Integer tempoDeSessao){
-        
+    private void terminoAutomaticoSessaoVotacao(Integer tempoDeSessao, Long idSessaoVotacao){
+
+        System.out.println(" TerminoAutomaticoSessaoVotacao ----- Programar finalização em "+ tempoDeSessao +"-----------------");
+
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+        TimerTask timerTask = new TimerUtil();
+        ses.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                finalizarSessaoVotacao(idSessaoVotacao);
+            }
+        }, Long.valueOf(tempoDeSessao), TimeUnit.MINUTES);
+
     }
 
 }

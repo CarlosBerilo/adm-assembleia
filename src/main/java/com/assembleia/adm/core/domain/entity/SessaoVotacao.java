@@ -55,13 +55,13 @@ public class SessaoVotacao {
     private SessaoVotacaoStatus sessaoVotacaoStatus;
 
     @Column
-    private Integer totalVotos;
+    private Integer totalVotos = 0;
 
     @Column
-    private Integer totalVotosSim;
+    private Integer totalVotosSim = 0;
 
     @Column
-    private Integer totalVotosNao;
+    private Integer totalVotosNao = 0;
 
     @JsonBackReference
     @OneToOne(fetch = FetchType.EAGER)
@@ -69,7 +69,7 @@ public class SessaoVotacao {
     private Pauta pauta;
 
     @JsonManagedReference
-    @ManyToMany(mappedBy = "sessaoVotacao",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "sessaoVotacao",fetch = FetchType.EAGER)
     private List<Voto> votos;
 
 }
