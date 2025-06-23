@@ -15,8 +15,8 @@ public class SessaoVotacaoAdapter implements SessaoVotacaoDataPort {
     private SessaoVotacaoRepository sessaoVotacaoRepository;
 
     @Override
-    public SessaoVotacao inicioSessaoVotacao(SessaoVotacao sessaoVotacao) {
-        return sessaoVotacaoRepository.save(sessaoVotacao);
+    public Optional<SessaoVotacao> inicioSessaoVotacao(SessaoVotacao sessaoVotacao) {
+        return Optional.of(sessaoVotacaoRepository.save(sessaoVotacao));
     }
 
     @Override

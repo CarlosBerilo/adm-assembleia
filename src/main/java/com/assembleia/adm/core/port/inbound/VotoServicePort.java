@@ -1,6 +1,5 @@
 package com.assembleia.adm.core.port.inbound;
 
-
 import com.assembleia.adm.core.domain.entity.Voto;
 
 public interface VotoServicePort {

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,14 +33,14 @@ public class SessaoVotacaoController {
         return new ResponseEntity<>(sessaoVotacaoMapper.toSessaoVotacaoResponseDTO(sessaoVotacaoIniciada), HttpStatus.CREATED);
     }
 
-    @PutMapping("/finalizar")
-    public ResponseEntity<SessaoVotacaoResponseDTO> finalizarSessaoVotacao(SessaoVotacaoRequestDTO sessaoVotacaoRequestDTO) {
-        SessaoVotacao sessaoVotacaoFinalizada = sessaoVotacaoServicePort.finalizarSessaoVotacao(sessaoVotacaoRequestDTO.getIdSessaoVotacao());
+    @PutMapping("/finalizar/{id}")
+    public ResponseEntity<SessaoVotacaoResponseDTO> finalizarSessaoVotacao(@PathVariable(value = "id") Long idSessaoVotacao) {
+        SessaoVotacao sessaoVotacaoFinalizada = sessaoVotacaoServicePort.finalizarSessaoVotacao(idSessaoVotacao);
         return new ResponseEntity<>(sessaoVotacaoMapper.toSessaoVotacaoResponseDTO(sessaoVotacaoFinalizada), HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<SessaoVotacaoResponseDTO> sessaoVotacaoById(SessaoVotacaoRequestDTO sessaoVotacaoRequestDTO) {
-        return new ResponseEntity<>(sessaoVotacaoMapper.toSessaoVotacaoResponseDTO(sessaoVotacaoServicePort.sessaoVotacaoById(sessaoVotacaoRequestDTO.getIdSessaoVotacao())), HttpStatus.OK);
+    @GetMapping("/{id}")
+    public ResponseEntity<SessaoVotacaoResponseDTO> sessaoVotacaoById(@PathVariable(value = "id") Long idSessaoVotacao) {
+        return new ResponseEntity<>(sessaoVotacaoMapper.toSessaoVotacaoResponseDTO(sessaoVotacaoServicePort.sessaoVotacaoById(idSessaoVotacao)), HttpStatus.OK);
     }
 }

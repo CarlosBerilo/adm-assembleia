@@ -1,6 +1,7 @@
 package com.assembleia.adm.core.domain.entity;
 
 import com.assembleia.adm.core.domain.enumeration.VotoStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,7 +14,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -39,12 +39,14 @@ public class Voto {
     @Enumerated(EnumType.STRING)
     private VotoStatus votoStatus;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "voto_cooperado",
             joinColumns =  @JoinColumn(name = "id_voto"),
             inverseJoinColumns = @JoinColumn(name = "id_cooperado"))
     private List<Cooperado> cooperados;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sessao_votacao", nullable = false)
     private SessaoVotacao sessaoVotacao;

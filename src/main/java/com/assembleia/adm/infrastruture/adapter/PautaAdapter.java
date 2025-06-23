@@ -16,13 +16,13 @@ public class PautaAdapter implements PautaDataPort {
     private PautaRepository pautaRepository;
 
     @Override
-    public Pauta criar(Pauta pauta) {
-        return pautaRepository.save(pauta);
+    public Optional<Pauta> criar(Pauta pauta) {
+        return Optional.of(pautaRepository.save(pauta));
     }
 
     @Override
-    public Pauta atualizar(Pauta pauta) {
-        return pautaRepository.save(pauta);
+    public Optional<Pauta> atualizar(Pauta pauta) {
+        return Optional.of(pautaRepository.save(pauta));
     }
 
     @Override

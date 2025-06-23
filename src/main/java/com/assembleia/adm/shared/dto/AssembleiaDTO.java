@@ -1,6 +1,5 @@
 package com.assembleia.adm.shared.dto;
 
-import com.assembleia.adm.core.domain.enumeration.AssembleiaStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

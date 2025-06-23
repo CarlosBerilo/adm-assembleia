@@ -1,6 +1,5 @@
 package com.assembleia.adm.entrypoint;
 
-import com.assembleia.adm.core.domain.entity.Cooperado;
 import com.assembleia.adm.core.port.inbound.CooperadoServicePort;
 import com.assembleia.adm.infrastruture.mapper.CooperadoMapper;
 import com.assembleia.adm.shared.dto.CooperadoDTO;

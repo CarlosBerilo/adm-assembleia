@@ -1,7 +1,6 @@
 package com.assembleia.adm.shared.dto;
 
 import com.assembleia.adm.core.domain.enumeration.VotoStatus;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;

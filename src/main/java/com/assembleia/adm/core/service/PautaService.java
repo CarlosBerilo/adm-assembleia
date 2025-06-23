@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PautaService implements PautaServicePort {
@@ -20,24 +19,24 @@ public class PautaService implements PautaServicePort {
     private AssembleiaDataPort assembleiaDataPort;
     @Override
     public Pauta criar(Pauta pauta) {
-        Pauta pautaCriada = pautaDataPort.criar(pauta);
-        Optional<Assembleia> assembleia = assembleiaDataPort.buscarPorId(pautaCriada.getAssembleia().getId());
-        pautaCriada.setAssembleia(assembleia.get());
+        Pauta pautaCriada = pautaDataPort.criar(pauta).orElseThrow(() -> new RuntimeException("Error ao tentar criar Pauta"));
+        Assembleia assembleia = assembleiaDataPort.buscarPorId(pautaCriada.getAssembleia().getId()).orElseThrow(() -> new RuntimeException("Assembleia não encontrada"));
+        pautaCriada.setAssembleia(assembleia);
         return pautaCriada;
     }
 
     @Override
     public Pauta atualizar(Pauta pauta) {
-        return null;
+        return pautaDataPort.atualizar(pauta).orElseThrow(() -> new RuntimeException("Error ao tentar atualizar Pauta"));
     }
 
     @Override
-    public Optional<Pauta> buscarPorId(Long idPauta) {
-        return Optional.empty();
+    public Pauta buscarPorId(Long idPauta) {
+        return pautaDataPort.buscarPorId(idPauta).orElseThrow(() -> new RuntimeException("Pauta não encontrada"));
     }
 
     @Override
     public List<Pauta> listaPorAssembleia(Long idAssembleia) {
-        return null;
+        return pautaDataPort.listaPorAssembleia(idAssembleia);
     }
 }

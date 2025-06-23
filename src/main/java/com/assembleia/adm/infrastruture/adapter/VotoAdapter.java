@@ -35,4 +35,11 @@ public class VotoAdapter implements VotoDataPort {
     public Integer totalVotosNao(Long idSessaoVotacao) {
         return votoRepository.findBySessaoVotacaoAndVotoStatus(SessaoVotacao.builder().id(idSessaoVotacao).build(), VotoStatus.NAO).size();
     }
+
+    @Override
+    public int votoExiste(Long idCooperado, Long idSessaoVotacao) {
+        return votoRepository.findByCooperadoAndSessaoVotacao(idCooperado, idSessaoVotacao);
+    }
+
+
 }

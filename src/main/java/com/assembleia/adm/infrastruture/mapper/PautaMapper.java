@@ -2,7 +2,6 @@ package com.assembleia.adm.infrastruture.mapper;
 
 import com.assembleia.adm.core.domain.entity.Assembleia;
 import com.assembleia.adm.core.domain.entity.Pauta;
-import com.assembleia.adm.shared.dto.AssembleiaDTO;
 import com.assembleia.adm.shared.dto.AssembleiaResponseDTO;
 import com.assembleia.adm.shared.dto.PautaDTO;
 import com.assembleia.adm.shared.dto.PautaResponseDTO;

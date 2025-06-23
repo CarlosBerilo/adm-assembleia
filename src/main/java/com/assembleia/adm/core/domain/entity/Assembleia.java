@@ -1,7 +1,7 @@
 package com.assembleia.adm.core.domain.entity;
 
 import com.assembleia.adm.core.domain.enumeration.AssembleiaStatus;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -59,10 +59,11 @@ public class Assembleia {
     @Enumerated(EnumType.STRING)
     private AssembleiaStatus assembleiaStatus;
 
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "assembleia", fetch = FetchType.LAZY)
     private List<Pauta> pautas;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "assembleia_cooperado",
     joinColumns =  @JoinColumn(name = "idAssembleia"),

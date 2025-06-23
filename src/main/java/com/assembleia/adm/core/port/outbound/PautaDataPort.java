@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface PautaDataPort {
 
-    Pauta criar(Pauta pauta);
+    Optional<Pauta> criar(Pauta pauta);
 
-    Pauta atualizar(Pauta pauta);
+    Optional<Pauta> atualizar(Pauta pauta);
 
     Optional<Pauta> buscarPorId(Long idPauta);
 

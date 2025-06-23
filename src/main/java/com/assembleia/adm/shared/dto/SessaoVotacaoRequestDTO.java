@@ -11,8 +11,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class SessaoVotacaoRequestDTO {
 
-    private Long idSessaoVotacao;
-
     private Long idPauta;
 
     private Integer tempoDeSessao;

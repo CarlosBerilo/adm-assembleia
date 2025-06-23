@@ -2,7 +2,6 @@ package com.assembleia.adm.entrypoint;
 
 import com.assembleia.adm.core.domain.entity.Pauta;
 import com.assembleia.adm.core.port.inbound.PautaServicePort;
-import com.assembleia.adm.core.port.outbound.PautaDataPort;
 import com.assembleia.adm.infrastruture.mapper.PautaMapper;
 import com.assembleia.adm.shared.dto.PautaDTO;
 import com.assembleia.adm.shared.dto.PautaResponseDTO;
