@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface AssembleiaDataPort {
 
-    Assembleia criar(Assembleia assembleia);
+    Optional<Assembleia> criar(Assembleia assembleia);
 
-    Assembleia atualizar(Assembleia assembleia);
+    Optional<Assembleia> atualizar(Assembleia assembleia);
 
     Optional<Assembleia> buscarPorId(Long idAssembleia);
 

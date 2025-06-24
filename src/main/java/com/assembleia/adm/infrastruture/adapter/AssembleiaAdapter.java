@@ -17,13 +17,13 @@ public class AssembleiaAdapter implements AssembleiaDataPort {
     private AssembleiaRepository assembleiaRepository;
 
     @Override
-    public Assembleia criar(Assembleia assembleia) {
-        return assembleiaRepository.save(assembleia);
+    public Optional<Assembleia> criar(Assembleia assembleia) {
+        return Optional.of(assembleiaRepository.save(assembleia));
     }
 
     @Override
-    public Assembleia atualizar(Assembleia assembleia) {
-        return assembleiaRepository.save(assembleia);
+    public Optional<Assembleia> atualizar(Assembleia assembleia) {
+        return Optional.of(assembleiaRepository.save(assembleia));
     }
 
     @Override

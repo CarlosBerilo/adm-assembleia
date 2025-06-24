@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -19,17 +20,17 @@ public class AssembleiaService implements AssembleiaServicePort {
     @Override
     public Assembleia criar(Assembleia assembleia) {
         assembleia.setAssembleiaStatus(AssembleiaStatus.MARCADA);
-        return assembleiaDataPort.criar(assembleia);
+        return assembleiaDataPort.criar(assembleia).get();
     }
 
     @Override
     public Assembleia atualizar(Assembleia assembleia) {
-        return assembleiaDataPort.atualizar(assembleia);
+        return assembleiaDataPort.atualizar(assembleia).get();
     }
 
     @Override
-    public Optional<Assembleia> buscarPorId(Long idAssembleia) {
-        return assembleiaDataPort.buscarPorId(idAssembleia);
+    public Assembleia buscarPorId(Long idAssembleia) {
+        return assembleiaDataPort.buscarPorId(idAssembleia).orElseThrow(() -> new NoSuchElementException("Assembleia não encontrada"));
     }
 
     @Override

@@ -6,6 +6,8 @@ import com.assembleia.adm.core.port.outbound.VotoDataPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class VotoService implements VotoServicePort {
 
@@ -17,7 +19,11 @@ public class VotoService implements VotoServicePort {
         if(votoDataPort.votoExiste(voto.getCooperados().getFirst().getId(), voto.getSessaoVotacao().getId()) > 0)
             throw new RuntimeException("Voto já realizado");
 
-        votoDataPort.votar(voto);
+        try {
+            votoDataPort.votar(voto);
+        }catch (Exception ex){
+               throw new RuntimeException("Voto não computado.Dados divergentes ou voto já computado");
+        }
     }
 
     @Override

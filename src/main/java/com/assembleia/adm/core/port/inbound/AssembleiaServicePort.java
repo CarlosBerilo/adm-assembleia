@@ -11,7 +11,7 @@ public interface AssembleiaServicePort {
 
     Assembleia atualizar(Assembleia assembleia);
 
-    Optional<Assembleia> buscarPorId(Long idAssembleia);
+    Assembleia buscarPorId(Long idAssembleia);
 
     List<Assembleia> lista();
 
