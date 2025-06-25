@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @Service
 public class CooperadoService implements CooperadoServicePort {
@@ -17,22 +17,23 @@ public class CooperadoService implements CooperadoServicePort {
 
     @Override
     public Cooperado criar(Cooperado cooperado) {
-        return cooperadoDataPort.criar(cooperado);
+        return cooperadoDataPort.criar(cooperado).orElseThrow(() -> new RuntimeException("Cooperado não casdastrado"));
     }
 
     @Override
-    public Cooperado atualizar(Cooperado cooperado) {
-        return cooperadoDataPort.atualizar(cooperado);
+    public Cooperado atualizar(Cooperado cooperado, Long id) {
+        cooperado.setId(id);
+        return cooperadoDataPort.atualizar(cooperado).orElseThrow(() -> new RuntimeException("Cooperado não atualizado"));
     }
 
     @Override
-    public Optional<Cooperado> buscarPorId(Long idCooperado) {
-        return cooperadoDataPort.buscarPorId(idCooperado);
+    public Cooperado buscarPorId(Long idCooperado) {
+        return cooperadoDataPort.buscarPorId(idCooperado).orElseThrow(() -> new NoSuchElementException("Cooperado não encontrado"));
     }
 
     @Override
-    public Optional<Cooperado> buscarPorCpf(String cpf) {
-        return cooperadoDataPort.buscarPorCpf(cpf);
+    public Cooperado buscarPorCpf(String cpf) {
+        return cooperadoDataPort.buscarPorCpf(cpf).orElseThrow(() -> new NoSuchElementException("Cooperado não encontrado"));
     }
 
     @Override

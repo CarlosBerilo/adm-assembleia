@@ -8,11 +8,11 @@ import java.util.Optional;
 public interface CooperadoServicePort {
     Cooperado criar(Cooperado cooperado);
 
-    Cooperado atualizar(Cooperado cooperado);
+    Cooperado atualizar(Cooperado cooperado, Long id);
 
-    Optional<Cooperado> buscarPorId(Long idCooperado);
+    Cooperado buscarPorId(Long idCooperado);
 
-    Optional<Cooperado> buscarPorCpf(String cpf);
+    Cooperado buscarPorCpf(String cpf);
 
     List<Cooperado> lista();
 }

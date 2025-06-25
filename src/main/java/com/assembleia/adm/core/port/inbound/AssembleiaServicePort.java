@@ -17,5 +17,4 @@ public interface AssembleiaServicePort {
 
     List<Assembleia> lista(AssembleiaStatus assembleiaStatus);
 
-    Assembleia incluirAta(Long idAssembleia,String ata);
 }

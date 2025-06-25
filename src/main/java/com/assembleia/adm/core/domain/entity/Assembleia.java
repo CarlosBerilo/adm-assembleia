@@ -19,10 +19,14 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
+@SuperBuilder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,13 +40,13 @@ public class Assembleia {
     private Long id;
 
     @Column(name = "data_convocacao")
-    private Date dataConvocacao;
+    private LocalDate dataConvocacao;
 
     @Column(name = "data_assembleia")
-    private Date dataAssembleia;
+    private LocalDate dataAssembleia;
 
     @Column(name = "hora_assembleia")
-    private String horaAssembleia;
+    private LocalTime horaAssembleia;
 
     @Column
     private String local;
@@ -52,9 +56,6 @@ public class Assembleia {
 
     @Column(name = "tempo_sessao")
     private Integer tempoSessao;
-
-    @Column
-    private String ata;
 
     @Enumerated(EnumType.STRING)
     private AssembleiaStatus assembleiaStatus;

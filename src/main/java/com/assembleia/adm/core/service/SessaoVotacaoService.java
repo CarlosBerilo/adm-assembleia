@@ -13,6 +13,7 @@ import com.assembleia.adm.shared.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.TimerTask;
@@ -40,10 +41,11 @@ public class SessaoVotacaoService implements SessaoVotacaoServicePort {
 
         if(tempoDeSessao == null && tempoDeSessao == 0) tempoDeSessao = 1;
 
+
         SessaoVotacao inicioSessaoVotacao = sessaoVotacaoDataPort.inicioSessaoVotacao(SessaoVotacao.builder()
                 .pauta(Pauta.builder().id(idPauta).build())
                 .inicio(TimeUtil.horaSessaoVotacao())
-                .previsaoTermino(TimeUtil.previsaoTerminoSessaoVotacao(tempoDeSessao))
+                //.previsaoTermino(TimeUtil.previsaoTerminoSessaoVotacao(tempoDeSessao, dataHoraInicio, ""))
                 .sessaoVotacaoStatus(SessaoVotacaoStatus.ABERTA)
                 .build()
                 ).orElseThrow(() -> new RuntimeException("Error: Sessao Votacao não inicializada"));

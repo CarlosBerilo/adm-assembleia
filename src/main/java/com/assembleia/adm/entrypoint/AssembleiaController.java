@@ -28,5 +28,4 @@ public class AssembleiaController {
         return new ResponseEntity<>(assembleiaMapper.toAssembleiaResponseDTO(assembleiaServicePort.criar(assembleiaMapper.toAssembleia(assembleiaDTO))), HttpStatus.OK);
     }
 
-
 }

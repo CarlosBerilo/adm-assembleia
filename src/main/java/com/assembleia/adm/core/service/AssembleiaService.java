@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class AssembleiaService implements AssembleiaServicePort {
@@ -20,12 +19,12 @@ public class AssembleiaService implements AssembleiaServicePort {
     @Override
     public Assembleia criar(Assembleia assembleia) {
         assembleia.setAssembleiaStatus(AssembleiaStatus.MARCADA);
-        return assembleiaDataPort.criar(assembleia).get();
+        return assembleiaDataPort.criar(assembleia).orElseThrow(() -> new RuntimeException("Assembleia não criada"));
     }
 
     @Override
     public Assembleia atualizar(Assembleia assembleia) {
-        return assembleiaDataPort.atualizar(assembleia).get();
+        return assembleiaDataPort.atualizar(assembleia).orElseThrow(() -> new RuntimeException("Assembleia não atualizada"));
     }
 
     @Override
@@ -43,8 +42,4 @@ public class AssembleiaService implements AssembleiaServicePort {
         return assembleiaDataPort.lista(assembleiaStatus);
     }
 
-    @Override
-    public Assembleia incluirAta(Long idAssembleia,String ata) {
-        return null;
-    }
 }

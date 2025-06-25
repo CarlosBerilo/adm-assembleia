@@ -21,7 +21,7 @@ public interface PautaMapper {
                         .id(pauta.getAssembleia().getId())
                         .dataConvocacao(pauta.getAssembleia().getDataConvocacao())
                         .dataAssembleia(pauta.getAssembleia().getDataAssembleia())
-                        .horaAssembleia(pauta.getAssembleia().getHoraAssembleia())
+                        //.horaAssembleia(pauta.getAssembleia().getHoraAssembleia())
                         .local(pauta.getAssembleia().getLocal())
                         .quorumMinimo(pauta.getAssembleia().getQuorumMinimo())
                         .tempoSessao(pauta.getAssembleia().getTempoSessao())

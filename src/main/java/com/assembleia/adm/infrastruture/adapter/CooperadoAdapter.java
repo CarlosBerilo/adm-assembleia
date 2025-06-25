@@ -16,13 +16,13 @@ public class CooperadoAdapter implements CooperadoDataPort {
     private CooperadoRepository cooperadoRepository;
 
     @Override
-    public Cooperado criar(Cooperado cooperado) {
-        return cooperadoRepository.save(cooperado);
+    public Optional<Cooperado> criar(Cooperado cooperado) {
+        return Optional.of(cooperadoRepository.save(cooperado));
     }
 
     @Override
-    public Cooperado atualizar(Cooperado cooperado) {
-        return cooperadoRepository.save(cooperado);
+    public Optional<Cooperado> atualizar(Cooperado cooperado) {
+        return Optional.of(cooperadoRepository.save(cooperado));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class CooperadoAdapter implements CooperadoDataPort {
 
     @Override
     public Optional<Cooperado> buscarPorCpf(String cpf) {
-        return cooperadoRepository.findByCpf(cpf);
+        return Optional.of(cooperadoRepository.findByCpf(cpf));
     }
 
     @Override

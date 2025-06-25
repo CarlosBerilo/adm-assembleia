@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @SuperBuilder
@@ -17,10 +18,10 @@ public class AssembleiaResponseDTO {
     private Long id;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date dataConvocacao;
+    private LocalDate dataConvocacao;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date dataAssembleia;
+    private LocalDate dataAssembleia;
 
     private String horaAssembleia;
 

@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 @SuperBuilder
@@ -40,16 +41,16 @@ public class SessaoVotacao {
     private Long id;
 
     @Column(name = "inicio")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp inicio;
+    @Temporal(TemporalType.DATE)
+    private LocalDate inicio;
 
     @Column(name = "previsao_termino")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp previsaoTermino;
+    @Temporal(TemporalType.DATE)
+    private LocalDate previsaoTermino;
 
     @Column(name = "termino")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp termino;
+    @Temporal(TemporalType.DATE)
+    private LocalDate termino;
 
     @Enumerated(EnumType.STRING)
     private SessaoVotacaoStatus sessaoVotacaoStatus;

@@ -1,23 +1,25 @@
 package com.assembleia.adm.shared.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SessaoVotacaoInicioDTO {
+public class CooperadoResponseDTO {
 
-    @NotNull
-    private Long idPauta;
+    private Long id;
 
-    @NotNull
-    @Min(1)
-    private Integer tempo;
+    private String cpf;
+
+    private String nome;
 
 }

@@ -6,9 +6,9 @@ import java.util.Optional;
 
 public interface CooperadoDataPort {
 
-    Cooperado criar(Cooperado cooperado);
+    Optional<Cooperado> criar(Cooperado cooperado);
 
-    Cooperado atualizar(Cooperado cooperado);
+    Optional<Cooperado> atualizar(Cooperado cooperado);
 
     Optional<Cooperado> buscarPorId(Long idCooperado);
 
