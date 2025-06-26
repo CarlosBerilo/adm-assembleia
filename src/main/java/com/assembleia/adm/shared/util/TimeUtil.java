@@ -10,16 +10,15 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 public class TimeUtil {
-    public static LocalDate horaSessaoVotacao(){
+    public static LocalDate dataSessaoVotacao(){
         return LocalDate.now();
     }
 
-    public static Timestamp previsaoTerminoSessaoVotacao(Integer tempoDeSessao, LocalDateTime dataHoraInicio, String horaInicio){
-        //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime localDateTime = LocalDateTime.parse(simpleDateFormat.format(dataHoraInicio), formater);
-        LocalDateTime localDateTimePrevisto = localDateTime.plusMinutes(tempoDeSessao);
-        return Timestamp.valueOf(localDateTimePrevisto);
+    public static LocalDateTime dataHoraSessaoVotacao(){
+        return LocalDateTime.now();
+    }
+
+    public static LocalDateTime previsaoTerminoSessaoVotacao(Integer tempoDeSessao, LocalDateTime dataHoraInicio){
+        return dataHoraInicio.plusMinutes(tempoDeSessao);
     }
 }

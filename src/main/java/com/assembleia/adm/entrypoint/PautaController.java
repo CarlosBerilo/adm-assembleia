@@ -24,8 +24,6 @@ public class PautaController {
 
     @PostMapping
     public ResponseEntity<PautaResponseDTO> cadastrar(@RequestBody PautaDTO pautaDTO){
-        Pauta toPauta = pautaMapper.toPauta(pautaDTO);
-        Pauta criar = pautaServicePort.criar(toPauta);
-        return new ResponseEntity<>(pautaMapper.toPautaResponseDTO(criar), HttpStatus.CREATED);
+        return new ResponseEntity<>(pautaMapper.toPautaResponseDTO(pautaServicePort.criar(pautaMapper.toPauta(pautaDTO))), HttpStatus.CREATED);
     }
 }

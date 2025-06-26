@@ -30,7 +30,7 @@ public class CooperadoController {
 
     @PostMapping
     public ResponseEntity<CooperadoResponseDTO> cadastrar(@RequestBody @Valid CooperadoDTO cooperadoDTO){
-            return new ResponseEntity<>(cooperadoMapper.toCooperadoResponseDTO(cooperadoServicePort.criar(cooperadoMapper.toCooperado(cooperadoDTO))), HttpStatus.OK);
+            return new ResponseEntity<>(cooperadoMapper.toCooperadoResponseDTO(cooperadoServicePort.salvar(cooperadoMapper.toCooperado(cooperadoDTO))), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

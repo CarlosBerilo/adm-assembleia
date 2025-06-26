@@ -44,8 +44,8 @@ public class SessaoVotacaoService implements SessaoVotacaoServicePort {
 
         SessaoVotacao inicioSessaoVotacao = sessaoVotacaoDataPort.inicioSessaoVotacao(SessaoVotacao.builder()
                 .pauta(Pauta.builder().id(idPauta).build())
-                .inicio(TimeUtil.horaSessaoVotacao())
-                //.previsaoTermino(TimeUtil.previsaoTerminoSessaoVotacao(tempoDeSessao, dataHoraInicio, ""))
+                .inicio(TimeUtil.dataHoraSessaoVotacao())
+                .previsaoTermino(TimeUtil.previsaoTerminoSessaoVotacao(tempoDeSessao, TimeUtil.dataHoraSessaoVotacao()))
                 .sessaoVotacaoStatus(SessaoVotacaoStatus.ABERTA)
                 .build()
                 ).orElseThrow(() -> new RuntimeException("Error: Sessao Votacao não inicializada"));
@@ -64,7 +64,7 @@ public class SessaoVotacaoService implements SessaoVotacaoServicePort {
         //TODO: Mudar status para finalizada
 
         SessaoVotacao sessaoVotacao = sessaoVotacaoById(idSessaoVotacao);
-        sessaoVotacao.setTermino(TimeUtil.horaSessaoVotacao());
+        sessaoVotacao.setTermino(TimeUtil.dataHoraSessaoVotacao());
         sessaoVotacao.setTotalVotos(sessaoVotacao.getVotos().size());
         sessaoVotacao.setTotalVotosSim(contagemVotosSim(sessaoVotacao.getVotos()));
         sessaoVotacao.setTotalVotosNao(contagemVotosNao(sessaoVotacao.getVotos()));

@@ -4,6 +4,7 @@ import com.assembleia.adm.core.domain.entity.Cooperado;
 import com.assembleia.adm.core.port.outbound.CooperadoDataPort;
 import com.assembleia.adm.infrastruture.config.Adapter;
 import com.assembleia.adm.infrastruture.repository.CooperadoRepository;
+import com.assembleia.adm.infrastruture.repository.ValidadorCpfClient;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -12,8 +13,13 @@ import java.util.Optional;
 @Adapter
 public class CooperadoAdapter implements CooperadoDataPort {
 
+    private static final String UNABLE_TO_VOTE = "UNABLE_TO_VOTE";
+
     @Autowired
     private CooperadoRepository cooperadoRepository;
+
+    @Autowired
+    private ValidadorCpfClient validadorCpfClient;
 
     @Override
     public Optional<Cooperado> criar(Cooperado cooperado) {
@@ -38,5 +44,11 @@ public class CooperadoAdapter implements CooperadoDataPort {
     @Override
     public List<Cooperado> lista() {
         return cooperadoRepository.findAll();
+    }
+
+    @Override
+    public void validarCpf(String cpf) {
+        if(validadorCpfClient.usuarioCpf(cpf).getStatus().equals(UNABLE_TO_VOTE))
+            throw new RuntimeException("Cooperado não está apto a votar");
     }
 }

@@ -15,4 +15,7 @@ public interface CooperadoDataPort {
     Optional<Cooperado> buscarPorCpf(String cpf);
 
     List<Cooperado> lista();
+
+    void validarCpf(String cpf);
+
 }

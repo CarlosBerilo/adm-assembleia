@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CooperadoServicePort {
-    Cooperado criar(Cooperado cooperado);
+    Cooperado salvar(Cooperado cooperado);
 
     Cooperado atualizar(Cooperado cooperado, Long id);
 

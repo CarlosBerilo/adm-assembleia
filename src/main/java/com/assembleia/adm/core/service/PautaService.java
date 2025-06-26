@@ -20,14 +20,15 @@ public class PautaService implements PautaServicePort {
     private AssembleiaServicePort assembleiaServicePort;
     @Override
     public Pauta criar(Pauta pauta) {
-        Pauta pautaCriada = pautaDataPort.criar(pauta).get();
-        pautaCriada.setAssembleia(assembleiaServicePort.buscarPorId(pautaCriada.getAssembleia().getId()));
+        var assembleia = assembleiaServicePort.buscarPorId(pauta.getAssembleia().getId());
+        var pautaCriada = pautaDataPort.criar(pauta).orElseThrow(() -> new RuntimeException("Error ao tentar salvar Pauta"));
+        pautaCriada.setAssembleia(assembleia);
         return pautaCriada;
     }
 
     @Override
     public Pauta atualizar(Pauta pauta) {
-        return pautaDataPort.atualizar(pauta).get();//.orElseThrow(() -> new RuntimeException("Error ao tentar atualizar Pauta"));
+        return pautaDataPort.atualizar(pauta).orElseThrow(() -> new RuntimeException("Error ao tentar atualizar Pauta"));
     }
 
     @Override

@@ -15,8 +15,10 @@ public class CooperadoService implements CooperadoServicePort {
     @Autowired
     private CooperadoDataPort cooperadoDataPort;
 
+
+
     @Override
-    public Cooperado criar(Cooperado cooperado) {
+    public Cooperado salvar(Cooperado cooperado) {
         return cooperadoDataPort.criar(cooperado).orElseThrow(() -> new RuntimeException("Cooperado não casdastrado"));
     }
 
