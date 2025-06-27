@@ -3,6 +3,7 @@ package com.assembleia.adm.infrastruture.adapter;
 import com.assembleia.adm.core.domain.entity.Cooperado;
 import com.assembleia.adm.core.port.outbound.CooperadoDataPort;
 import com.assembleia.adm.infrastruture.config.Adapter;
+import com.assembleia.adm.infrastruture.error.AdmAssembleiaException;
 import com.assembleia.adm.infrastruture.repository.CooperadoRepository;
 import com.assembleia.adm.infrastruture.repository.ValidadorCpfClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,6 @@ public class CooperadoAdapter implements CooperadoDataPort {
     @Override
     public void validarCpf(String cpf) {
         if(validadorCpfClient.usuarioCpf(cpf).getStatus().equals(UNABLE_TO_VOTE))
-            throw new RuntimeException("Cooperado não está apto a votar");
+            throw new AdmAssembleiaException("Cooperado não está apto a votar");
     }
 }

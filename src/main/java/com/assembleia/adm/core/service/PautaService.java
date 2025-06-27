@@ -1,6 +1,5 @@
 package com.assembleia.adm.core.service;
 
-import com.assembleia.adm.core.domain.entity.Assembleia;
 import com.assembleia.adm.core.domain.entity.Pauta;
 import com.assembleia.adm.core.port.inbound.AssembleiaServicePort;
 import com.assembleia.adm.core.port.inbound.PautaServicePort;

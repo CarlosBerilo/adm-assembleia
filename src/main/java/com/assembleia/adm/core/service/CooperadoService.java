@@ -3,6 +3,7 @@ package com.assembleia.adm.core.service;
 import com.assembleia.adm.core.domain.entity.Cooperado;
 import com.assembleia.adm.core.port.inbound.CooperadoServicePort;
 import com.assembleia.adm.core.port.outbound.CooperadoDataPort;
+import com.assembleia.adm.infrastruture.error.AdmAssembleiaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +20,13 @@ public class CooperadoService implements CooperadoServicePort {
 
     @Override
     public Cooperado salvar(Cooperado cooperado) {
-        return cooperadoDataPort.criar(cooperado).orElseThrow(() -> new RuntimeException("Cooperado não casdastrado"));
+        return cooperadoDataPort.criar(cooperado).orElseThrow(() -> new AdmAssembleiaException("Cooperado não casdastrado"));
     }
 
     @Override
     public Cooperado atualizar(Cooperado cooperado, Long id) {
         cooperado.setId(id);
-        return cooperadoDataPort.atualizar(cooperado).orElseThrow(() -> new RuntimeException("Cooperado não atualizado"));
+        return cooperadoDataPort.atualizar(cooperado).orElseThrow(() -> new AdmAssembleiaException("Cooperado não atualizado"));
     }
 
     @Override

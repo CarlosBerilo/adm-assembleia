@@ -4,7 +4,6 @@ import com.assembleia.adm.core.domain.entity.Assembleia;
 import com.assembleia.adm.core.domain.enumeration.AssembleiaStatus;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AssembleiaServicePort {
     Assembleia criar(Assembleia assembleia);

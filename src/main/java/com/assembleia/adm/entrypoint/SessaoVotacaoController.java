@@ -27,8 +27,6 @@ public class SessaoVotacaoController {
 
     @PostMapping("/iniciar")
     public ResponseEntity<SessaoVotacaoResponseDTO> iniciarSessaoVotacao(SessaoVotacaoRequestDTO sessaoVotacaoRequestDTO) {
-        //TODO: Validar se ja existe/inicializada "Sessão já inicializada"
-        //TODO: Validar se ja existe/finalizada "Sessão já finalizada"
         SessaoVotacao sessaoVotacaoIniciada = sessaoVotacaoServicePort.iniciarSessaoVotacao(sessaoVotacaoRequestDTO.getTempoDeSessao(), sessaoVotacaoRequestDTO.getIdPauta());
         return new ResponseEntity<>(sessaoVotacaoMapper.toSessaoVotacaoResponseDTO(sessaoVotacaoIniciada), HttpStatus.CREATED);
     }

@@ -34,13 +34,12 @@ public class SessaoVotacaoService implements SessaoVotacaoServicePort {
     @Autowired
     private VotoServicePort votoServicePort;
 
+    private final ScheduledExecutorService sessaoVotacao = Executors.newScheduledThreadPool(1);
+
 
     @Override
     public SessaoVotacao iniciarSessaoVotacao(Integer tempoDeSessao, Long idPauta) {
         Pauta pauta = pautaServicePort.buscarPorId(idPauta);
-
-        if(tempoDeSessao == null && tempoDeSessao == 0) tempoDeSessao = 1;
-
 
         SessaoVotacao inicioSessaoVotacao = sessaoVotacaoDataPort.inicioSessaoVotacao(SessaoVotacao.builder()
                 .pauta(Pauta.builder().id(idPauta).build())
@@ -60,17 +59,16 @@ public class SessaoVotacaoService implements SessaoVotacaoServicePort {
 
     @Override
     public SessaoVotacao finalizarSessaoVotacao(Long idSessaoVotacao) {
-        //TODO: Validar se ja existe/inicializada
-        //TODO: Mudar status para finalizada
+        SessaoVotacao sessaoVotacaoFinalizar = sessaoVotacaoDataPort.sessaoVotacaoById(idSessaoVotacao).map(sessaoFinalizar -> {
+            sessaoFinalizar.setTermino(TimeUtil.dataHoraSessaoVotacao());
+            sessaoFinalizar.setTotalVotos(sessaoFinalizar.getVotos().size());
+            sessaoFinalizar.setTotalVotosSim(contagemVotosSim(sessaoFinalizar.getVotos()));
+            sessaoFinalizar.setTotalVotosNao(contagemVotosNao(sessaoFinalizar.getVotos()));
+            sessaoFinalizar.setSessaoVotacaoStatus(SessaoVotacaoStatus.FECHADA);
+            return sessaoFinalizar;
+        }).orElseThrow(() -> new NoSuchElementException("Sessao Votacao não encontrada"));
 
-        SessaoVotacao sessaoVotacao = sessaoVotacaoById(idSessaoVotacao);
-        sessaoVotacao.setTermino(TimeUtil.dataHoraSessaoVotacao());
-        sessaoVotacao.setTotalVotos(sessaoVotacao.getVotos().size());
-        sessaoVotacao.setTotalVotosSim(contagemVotosSim(sessaoVotacao.getVotos()));
-        sessaoVotacao.setTotalVotosNao(contagemVotosNao(sessaoVotacao.getVotos()));
-        sessaoVotacao.setSessaoVotacaoStatus(SessaoVotacaoStatus.FECHADA);
-
-        return sessaoVotacaoDataPort.terminoSessaoVotacao(sessaoVotacao)
+        return sessaoVotacaoDataPort.terminoSessaoVotacao(sessaoVotacaoFinalizar)
                 .orElseThrow(() -> new RuntimeException("Sessao Votacao não finalizada"));
     }
 
@@ -101,15 +99,12 @@ public class SessaoVotacaoService implements SessaoVotacaoServicePort {
     }
 
     private void terminoProgramadoSessaoVotacao(Integer tempoDeSessao, Long idSessaoVotacao){
-        System.out.println(" TerminoAutomaticoSessaoVotacao ----- Programar finalização em "+ tempoDeSessao +"-----------------");
-
-        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
-        ses.schedule(new TimerTask() {
+        sessaoVotacao.schedule(new TimerTask() {
             @Override
             public void run() {
                 finalizarSessaoVotacao(idSessaoVotacao);
             }
-        }, Long.valueOf(tempoDeSessao), TimeUnit.MINUTES);
+        }, tempoDeSessao, TimeUnit.MINUTES);
 
     }
 
